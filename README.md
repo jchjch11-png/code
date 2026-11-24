@@ -1,6 +1,6 @@
-# 글로벌 물 마시기 앱 — 팀 업무 문서
+# 글로벌 물 마시기 앱
 
-알림에서 물 섭취를 기록하고, 달성률별 캐릭터 스티커를 앱 달력에 붙이는 iOS/iPadOS·Android 앱의 개발 계획이다.
+물 섭취를 기록하고 알림과 날짜별 달성률을 확인하는 Flutter 앱의 최초 시제품이다. 캐릭터 스티커를 달력에 붙이는 기능과 글로벌 출시는 후속 계획이다.
 
 **현재 상태: 최초 시제품 구현. 목표 직접 설정, 섭취 기록·저장, 날짜별 조회, 보상 등급 미리보기, 6개 언어 선택과 1분 알림 코드를 포함한다. 실기기 검증·스토어 배포는 아직 수행하지 않았다.**
 
@@ -46,14 +46,16 @@ flutter test
 flutter run
 ```
 
-Android 빌드는 Android SDK와 전체 JDK가 필요하다. iOS 빌드는 macOS와 Xcode가 필요하다.
+Android 빌드에는 전체 JDK 21과 Android SDK 36을 사용했다. `flutter_local_notifications` 22.3.3을 사용하며 정확한 의존성은 잠금 파일을 따른다. iOS 빌드는 macOS와 Xcode가 필요하다.
 
 ```sh
-flutter build apk --debug --target-platform android-arm64
+flutter build apk --release --target-platform android-arm64 --no-shrink
 ```
+
+현재 release 구성도 개발용 debug 키로 서명한다. 생성되는 APK는 arm64 Android 기기에서 확인할 테스트 파일이며, 스토어 제출용 서명은 포함하지 않는다.
 
 앱에서 하루 목표를 직접 설정한 뒤 200mL·100mL 또는 직접 입력을 사용한다. 설정에서 언어를 바꿀 수 있다. 알림 권한은 ‘1분 뒤 알려주세요’를 누를 때 요청한다. Android 알림은 정확한 알람 특수 권한 없이 예약하므로 OS 설정에 따라 지연될 수 있다.
 
 현재 스티커는 등급을 확인하는 이모지 미리보기다. 자유 배치·캐릭터 자산, 자동·수동 하루 전체 일정, 의료 근거를 검토한 권장 목표, 원어민 번역 검수는 후속 작업이다. 중국어 기본 `zh` ARB는 Flutter 생성기의 필수 대체 리소스이며, 사용자가 고르는 언어팩은 간체·번체를 포함한 6개다.
 
-실제 검사 결과와 환경 제약은 [진행 현황](docs/STATUS.md), 다음 작업은 [재개 지점](docs/NEXT_STEPS.md)을 확인한다.
+실제 검사 결과와 환경 제약은 [진행 현황](docs/STATUS.md)과 [검증 기록](docs/VALIDATION.md), 다음 작업은 [재개 지점](docs/NEXT_STEPS.md)을 확인한다.

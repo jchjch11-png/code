@@ -18,25 +18,31 @@
 ## 현재 체크포인트
 
 - S0 문서 12개와 Git 연결 완료. 시작 커밋 `40a9799`.
-- Flutter 3.50.1 / Dart 3.14.0과 Android SDK 36 설치, 최초 앱·SQLite·6개 언어·알림 코드 작성, 자동 검사 17개 통과.
-- Linux 시스템 Java는 JRE이며 컴파일러가 없어 Android 빌드가 실패했다. 전체 JDK를 사용자 경로에 설치해야 한다.
-- 알림 플러그인 23.0.4는 compileSdk 37을 요구하지만 현재 SDK 제공 목록에 37이 없다. 제공되는 SDK 36과 호환되는 안정 버전을 선택하고 다시 분석·검사·빌드한다.
-- 설치 캐시 때문에 디스크가 부족해져 이번 작업에서 받은 Gradle 문서·소스·압축본만 제거했다. 코드·의존성 바이너리는 보존했다.
+- 앱 코드 체크포인트 `d5238da8dd2736281516dc9ed9e55ebb78772d4d`를 GitHub `main`에 푸시했다. 호환성 수정·실제 빌드 결과는 후속 커밋으로 저장한다.
+- Flutter 3.50.1 / Dart 3.14.0, JDK 21과 Android SDK 36으로 최초 앱·SQLite·6개 언어·알림 코드를 준비했다. 정적 분석 오류 0건, 자동 검사 17개 통과.
+- 알림 플러그인은 compileSdk 37을 요구하는 23.0.4 대신 SDK 36과 호환되는 22.3.3을 사용한다. 의존성 변경 뒤 분석·검사를 다시 통과했다.
+- Android arm64 APK 빌드 성공. `build/app/outputs/flutter-apk/app-release.apk`, 18,120,195 bytes. 무결성·서명 확인 결과와 SHA-256은 `VALIDATION.md`에 있다.
+- 약 8GB 공간 제약으로 재생성 가능한 도구 캐시를 정리했다. 앱 코드·검사·빌드에 사용한 컴파일러는 보존했다. 큰 도구 추가 설치 전 `df -h /workspace`를 확인한다.
 - macOS/Xcode와 실기기 접근은 확보되지 않았으므로 iOS 빌드·실기기 검증을 완료로 표시하지 않는다.
 - 초기 앱은 직접 목표 설정을 사용한다. 의료 근거를 확인하기 전 권장량 공식을 임의로 추가하지 않는다.
 
-## 지금 이어갈 작업
+## 다음 개발을 시작할 때
 
-1. JDK와 알림 플러그인/compileSdk 호환성을 맞춰 Android arm64 디버그 APK 빌드.
-2. `flutter analyze`, `flutter test` 최종 결과와 실제 APK 경로·해시를 STATUS에 남긴다.
-3. Git 상태를 확인하고 검사한 변경을 커밋·푸시한다. 설치 가능한 APK가 나오면 로컬 결과 파일로 전달한다.
-4. 네 기기 실물, iOS macOS/Xcode, 번역 검수는 확보하지 않았으므로 완료로 표시하지 않는다.
+최초 시제품의 코드·자동 검사·Android 빌드 목표는 충족했다. 예약 작업이 다시 실행되더라도 아래 후속 범위를 임의로 확장하지 않고 현재 결과를 먼저 보고한다.
+
+1. Android 실기기를 사용할 수 있으면 `VALIDATION.md`의 절차로 APK 설치, 앱 재시작 후 저장, 알림 전체/절반·중복 응답을 확인한다. 기기·OS·언어·권한·앱 상태별 관찰 결과를 기록한다.
+2. macOS/Xcode와 iPhone·iPad 접근이 확보되면 iOS 빌드 및 알림 실기기 검증을 진행한다. 현재 결과는 미검증이다.
+3. 후속 제품 개발 범위를 정할 때 하루 전체 알림 일정·미루기, 스티커 자산·배치, 접근성·태블릿 화면을 우선순위로 검토한다.
+4. 건강 권장량의 근거와 원어민 번역 검수는 별도 검토 자원이 필요하다. 스토어 계정·서명·제출·공개는 이번 과업에 포함하지 않는다.
 
 ## 실행 환경
 
-- `PATH`에 `/workspace/toolchains/flutter/bin`을 추가하고 `PUB_CACHE=/workspace/toolchains/pub-cache`, `XDG_CONFIG_HOME=/workspace/toolchains/config`, `ANDROID_HOME=/workspace/toolchains/android-sdk`, `ANDROID_USER_HOME=/workspace/toolchains/android-user`, `GRADLE_USER_HOME=/workspace/toolchains/gradle`을 사용했다.
+- `PATH`에 `/workspace/toolchains/flutter/bin`을 추가하고 `PUB_CACHE=/workspace/toolchains/pub-cache`, `XDG_CONFIG_HOME=/workspace/toolchains/config`, `ANDROID_HOME=/workspace/toolchains/android-sdk`, `ANDROID_USER_HOME=/workspace/toolchains/android-user`, `GRADLE_USER_HOME=/workspace/toolchains/gradle`, `JAVA_HOME=/workspace/toolchains/jdk21`을 사용했다. 시스템 Java는 컴파일러 없는 JRE이므로 빌드에 사용하지 않는다.
 - Dart 분석 캐시는 `/home/agent/.dartServer`, `/home/agent/.dart-tool`에 쓰기 권한이 필요했다. HOME을 다른 경로로 바꾸지 않는다.
 - 이 환경의 Java 네트워크 클라이언트는 기존 HTTPS 프록시 설정을 JVM 속성으로 전달해야 했다. 비밀값은 저장소에 넣지 않는다.
+- Flutter SDK는 `bin`, `packages`의 sparse checkout이며 실행 바이너리 캐시를 유지한다. Gradle 배포 문서·소스·압축본과 Android CLI 다운로드 캐시는 정리했으며 SDK 관리 명령은 필요 시 캐시를 다시 다운로드한다.
+- 사용하지 않은 NDK 성능 측정 도구 `simpleperf`는 제거했다. 네이티브 디버거 라이브러리는 `/workspace/toolchains/optional/ndk-liblldb.so.gz`로 보관했다. NDK 디버깅·성능 측정이 필요하면 공간을 확보한 뒤 원본 NDK를 복원하거나 재설치한다. 빌드에 필요한 도구는 유지했고 실제 APK 생성으로 확인했다.
+- 상세 명령 출력은 현재 환경의 `/tmp/hydration_analyze.log`, `/tmp/hydration_tests.log`, `/tmp/hydration_android_build_verified.log`에 있다. 임시 로그가 사라져도 저장소의 `VALIDATION.md`에서 관찰 결과를 확인할 수 있다.
 
 ## 작업 규칙
 
