@@ -1,0 +1,104 @@
+{
+  "@@locale": "en",
+  "appTitle": "Hydration",
+  "today": "Today",
+  "calendar": "Calendar",
+  "settings": "Settings",
+  "language": "Language",
+  "systemLanguage": "System language",
+  "goalTitle": "Your daily goal",
+  "goalHelp": "Choose your own drinking goal. Follow your clinician’s guidance if you have a prescribed fluid limit.",
+  "goalPrompt": "Set your daily goal",
+  "goalHint": "For example, 2000 mL",
+  "save": "Save",
+  "cancel": "Cancel",
+  "amountHint": "Amount in mL",
+  "customAmount": "Custom amount",
+  "addWater": "Add water",
+  "editGoal": "Edit goal",
+  "goalNotSet": "Set a goal to start your day.",
+  "noEntries": "Your first sip starts here.",
+  "history": "Today’s drinks",
+  "delete": "Delete",
+  "deleted": "Drink removed",
+  "invalidAmount": "Enter a whole number from 1 to 20,000.",
+  "genericError": "Could not save. Please try again.",
+  "reminderTitle": "Time for a sip",
+  "reminderBody": "Your planned drink: {amount} mL",
+  "reminderFull": "Full · {amount} mL",
+  "reminderHalf": "Half · {amount} mL",
+  "reminderDemo": "Remind me in 1 minute",
+  "reminderHelp": "Expand the notification to record a full or half drink. Delivery can vary with device settings.",
+  "permissionDenied": "Allow notifications in your device settings to use reminders.",
+  "reminderScheduled": "A reminder is set for about one minute from now.",
+  "reminderFailed": "Could not schedule the reminder. Please try again.",
+  "noReward": "A fresh start",
+  "rewardQuirky": "Quirky little friend",
+  "rewardCute": "A lovely little friend",
+  "rewardSpecial": "Your special star",
+  "complete": "Daily goal reached",
+  "goalSaved": "Your goal is saved",
+  "amountMl": "{amount} mL",
+  "progressSummary": "{current} / {goal} mL",
+  "remainingMl": "{amount} mL to go",
+  "goalAppliesToday": "This changes today’s goal and future days. Previous days stay the same.",
+  "stickerPreview": "Daily sticker preview",
+  "@reminderBody": {
+    "description": "Displayed water volume in millilitres.",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "@reminderFull": {
+    "description": "Displayed water volume in millilitres.",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "@reminderHalf": {
+    "description": "Displayed water volume in millilitres.",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "@amountMl": {
+    "description": "Displayed water volume in millilitres.",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "@progressSummary": {
+    "description": "Displayed water volume in millilitres.",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "goal": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "@remainingMl": {
+    "description": "Displayed water volume in millilitres.",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  }
+}
